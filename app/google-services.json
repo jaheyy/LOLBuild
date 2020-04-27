@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "108100019445",
+    "firebase_url": "https://lolbuild.firebaseio.com",
+    "project_id": "lolbuild",
+    "storage_bucket": "lolbuild.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108100019445:android:d6caad9ea2738e04a6d1bc",
+        "android_client_info": {
+          "package_name": "com.example.lolbuild"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108100019445-29695ltansjb6bsgrjqv0m714ru30hr1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lolbuild",
+            "certificate_hash": "babcd5be0c09aba710d1baab96bcb36de4b2894a"
+          }
+        },
+        {
+          "client_id": "108100019445-5l5efe9a6bmq68hmqj0l5s4c90fnrpeg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEPb_atBt04daArJ3OXIQ94OZaJDA5rno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108100019445-5l5efe9a6bmq68hmqj0l5s4c90fnrpeg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
