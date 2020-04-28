@@ -15,6 +15,10 @@
         <action
             android:id="@+id/action_singInFragment_to_resetPasswordFragment"
             app:destination="@id/resetPasswordFragment" />
+        <action
+            android:id="@+id/action_singInFragment_to_appMainFragment"
+            app:destination="@id/appMainFragment"
+            app:popUpTo="@id/appMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -24,10 +28,19 @@
         <action
             android:id="@+id/action_signUpFragment_to_singInFragment"
             app:destination="@id/singInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_appMainFragment"
+            app:destination="@id/appMainFragment"
+            app:popUpTo="@id/appMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.example.lolbuild.ResetPasswordFragment"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" />
+    <fragment
+        android:id="@+id/appMainFragment"
+        android:name="com.example.lolbuild.AppMainFragment"
+        android:label="fragment_app_main"
+        tools:layout="@layout/fragment_app_main" />
 </navigation>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -16,12 +17,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.Validator.ValidationListener;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
+
+import java.util.List;
 
 
 /**
@@ -39,7 +52,10 @@ public class SingInFragment extends Fragment {
 //    private String mParam1;
 //    private String mParam2;
 
+    @NotEmpty
+    @Email
     private EditText emailEditText;
+    @NotEmpty
     private EditText passwordEditText;
     private Button signInButton;
     private TextView dontHaveAccountTextView;
@@ -47,6 +63,9 @@ public class SingInFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private Validator validator;
+    private ValidationListener validationListener;
+    private NavController navController;
 
     public SingInFragment() {
         // Required empty public constructor
@@ -95,6 +114,8 @@ public class SingInFragment extends Fragment {
         forgotPasswordTextView = view.findViewById(R.id.forgotPasswordTextView);
         dontHaveAccountTextView = view.findViewById(R.id.dontHaveAccountTextView);
 
+        navController = Navigation.findNavController(view);
+
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -102,31 +123,67 @@ public class SingInFragment extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(getContext(), "You are logged in!", Toast.LENGTH_SHORT).show();
+                    navController.navigate(R.id.action_singInFragment_to_appMainFragment);
                 }
             }
         };
 
+        validator = new Validator(this);
+        validationListener = new ValidationListener() {
+            @Override
+            public void onValidationSucceeded() {
+                String email = emailEditText.getText().toString();
+                String pwd = passwordEditText.getText().toString();
+                auth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthInvalidUserException e) {
+                                emailEditText.setError("Such user doesn't exist.");
+                                passwordEditText.setError("Such user doesn't exist.");
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
+                                passwordEditText.setError("Incorrect password.");
+                            } catch (Exception e) {
+                                Log.e("Auth Exception", e.getMessage());
+                            }
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onValidationFailed(List<ValidationError> errors) {
+                for (ValidationError error : errors) {
+                    View view = error.getView();
+                    String message = error.getCollatedErrorMessage(getContext());
+                    if (view instanceof EditText) {
+                        ((EditText) view).setError(message);
+                    }
+                }
+            }
+        };
+        validator.setValidationListener(validationListener);
+
         dontHaveAccountTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_singInFragment_to_signUpFragment);
+                navController.navigate(R.id.action_singInFragment_to_signUpFragment);
             }
         });
 
         forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_singInFragment_to_resetPasswordFragment);
+                navController.navigate(R.id.action_singInFragment_to_resetPasswordFragment);
             }
         });
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailEditText.getText().toString();
-                String pwd = passwordEditText.getText().toString();
-                auth.signInWithEmailAndPassword(email, pwd);
+                validator.validate();
             }
         });
     }

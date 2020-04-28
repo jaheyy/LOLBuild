@@ -37,4 +37,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
 }
