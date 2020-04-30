@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import com.example.lolbuild.AppMainFragment;
 import com.example.lolbuild.MainActivity;
+import com.example.lolbuild.utilities.Utilities;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +14,7 @@ public class FetchLolVersion extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        versionJson = FetchData.fetch("https://ddragon.leagueoflegends.com/api/versions.json");
+        versionJson = Utilities.fetchData("https://ddragon.leagueoflegends.com/api/versions.json");
         return null;
     }
 
@@ -26,7 +27,5 @@ public class FetchLolVersion extends AsyncTask<Void, Void, Void> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        FetchChampions fetchChampions = new FetchChampions();
-        fetchChampions.execute();
     }
 }
