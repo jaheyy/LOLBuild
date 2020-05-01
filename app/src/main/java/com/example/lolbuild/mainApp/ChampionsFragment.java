@@ -1,4 +1,4 @@
-package com.example.lolbuild;
+package com.example.lolbuild.mainApp;
 
 import android.os.Bundle;
 
@@ -9,35 +9,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
+import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.ChampionsAdapter;
+import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.example.lolbuild.jobs.FetchChampions;
-import com.example.lolbuild.jobs.FetchLolVersion;
-import com.google.firebase.auth.FirebaseAuth;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AppMainFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class AppMainFragment extends Fragment implements FetchChampions.AsyncResponse {
+public class ChampionsFragment extends Fragment implements FetchChampions.AsyncResponse {
+
     private static String championsJson;
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
     ChampionsAdapter championsAdapter;
 
-    public AppMainFragment() {
+    public ChampionsFragment() {
         // Required empty public constructor
     }
 
@@ -46,7 +37,7 @@ public class AppMainFragment extends Fragment implements FetchChampions.AsyncRes
     }
 
     public static void setChampionsJson(String championsJson) {
-        AppMainFragment.championsJson = championsJson;
+        ChampionsFragment.championsJson = championsJson;
     }
 
 
@@ -103,7 +94,7 @@ public class AppMainFragment extends Fragment implements FetchChampions.AsyncRes
     @Override
     public void processFinish(String output) {
         if (output.equals("Success")) {
-            championsAdapter = new ChampionsAdapter(getContext(), MainActivity.getChampions());
+            championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions());
             recyclerView.setAdapter(championsAdapter);
         }
     }

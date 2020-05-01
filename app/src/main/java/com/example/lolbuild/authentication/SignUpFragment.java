@@ -1,5 +1,6 @@
-package com.example.lolbuild;
+package com.example.lolbuild.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lolbuild.R;
+import com.example.lolbuild.mainApp.MainAppActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -158,7 +160,8 @@ public class SignUpFragment extends Fragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Toast.makeText(getContext(), "Your account has been created!", Toast.LENGTH_SHORT).show();
-                    navController.navigate(R.id.action_signUpFragment_to_appMainFragment);
+                    Intent myIntent = new Intent(getContext(), MainAppActivity.class);
+                    startActivity(myIntent);
                 }
             }
         };

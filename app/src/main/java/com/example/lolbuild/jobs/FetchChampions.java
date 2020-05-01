@@ -5,7 +5,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.lolbuild.MainActivity;
+import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.example.lolbuild.utilities.Utilities;
 
 import org.json.JSONException;
@@ -32,7 +32,7 @@ public class FetchChampions extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        championJson = Utilities.fetchData("http://ddragon.leagueoflegends.com/cdn/" + MainActivity.getLolVersion() + "/data/en_US/champion.json");
+        championJson = Utilities.fetchData("http://ddragon.leagueoflegends.com/cdn/" + AuthenticationActivity.getLolVersion() + "/data/en_US/champion.json");
         return null;
     }
 
@@ -44,7 +44,7 @@ public class FetchChampions extends AsyncTask<Void, Void, Void> {
             JSONObject champions = new JSONObject(championJson).getJSONObject("data");
             ArrayList<String> championList = new ArrayList<>();
             champions.keys().forEachRemaining(championList::add);
-            MainActivity.setChampions(championList);
+            AuthenticationActivity.setChampions(championList);
             delegate.processFinish("Success");
         } catch (JSONException e) {
             e.printStackTrace();
