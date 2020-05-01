@@ -124,6 +124,7 @@ public class SingInFragment extends Fragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Intent myIntent = new Intent(getContext(), MainAppActivity.class);
+                    getActivity().finish();
                     startActivity(myIntent);
                 }
             }

@@ -161,6 +161,7 @@ public class SignUpFragment extends Fragment {
                 if (user != null) {
                     Toast.makeText(getContext(), "Your account has been created!", Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(getContext(), MainAppActivity.class);
+                    getActivity().finish();
                     startActivity(myIntent);
                 }
             }

@@ -44,13 +44,6 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-            @Override
-            public void handleOnBackPressed() {
-                getActivity().finishAndRemoveTask();
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
         FetchChampions fetchChampions = new FetchChampions();
         fetchChampions.setDelegate(this);
         fetchChampions.execute();
@@ -60,7 +53,7 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_app_main, container, false);
+        return inflater.inflate(R.layout.fragment_champions, container, false);
     }
 
     @Override

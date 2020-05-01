@@ -6,7 +6,10 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,6 +20,7 @@ import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.ChampionsAdapter;
 import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.example.lolbuild.jobs.FetchChampions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 /**
@@ -24,38 +28,20 @@ import com.example.lolbuild.jobs.FetchChampions;
  * Use the {@link AppMainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AppMainFragment extends Fragment implements FetchChampions.AsyncResponse {
-    private static String championsJson;
+public class AppMainFragment extends Fragment {
     RecyclerView recyclerView;
-    GridLayoutManager gridLayoutManager;
-    ChampionsAdapter championsAdapter;
+    LinearLayoutManager linearLayoutManager;
+//    MyBuildAdapter myBuildAdapter;
+    FloatingActionButton createBuildFAB;
+    NavController navController;
 
     public AppMainFragment() {
         // Required empty public constructor
     }
 
-    public static String getChampionsJson() {
-        return championsJson;
-    }
-
-    public static void setChampionsJson(String championsJson) {
-        AppMainFragment.championsJson = championsJson;
-    }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-            @Override
-            public void handleOnBackPressed() {
-                getActivity().finishAndRemoveTask();
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
-        FetchChampions fetchChampions = new FetchChampions();
-        fetchChampions.setDelegate(this);
-        fetchChampions.execute();
     }
 
     @Override
@@ -71,9 +57,11 @@ public class AppMainFragment extends Fragment implements FetchChampions.AsyncRes
 //        FirebaseAuth auth = FirebaseAuth.getInstance();
 //        String email = auth.getCurrentUser().getEmail();
 //        Log.i("User", auth.getCurrentUser().toString());
-        recyclerView = view.findViewById(R.id.championsRecyclerView);
-        gridLayoutManager = new GridLayoutManager(getContext(),5);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        createBuildFAB = view.findViewById(R.id.createBuildFAB);
+        navController = Navigation.findNavController(view);
+        recyclerView = view.findViewById(R.id.myBuildsRecyclerView);
+        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new RecyclerView.Adapter() {
             @NonNull
             @Override
@@ -91,13 +79,12 @@ public class AppMainFragment extends Fragment implements FetchChampions.AsyncRes
                 return 0;
             }
         });
-    }
 
-    @Override
-    public void processFinish(String output) {
-        if (output.equals("Success")) {
-            championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions());
-            recyclerView.setAdapter(championsAdapter);
-        }
+        createBuildFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_appMainFragment_to_championsFragment2);
+            }
+        });
     }
 }
