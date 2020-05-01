@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav_graph.xml"
-    app:startDestination="@id/appMainFragment">
+    app:startDestination="@id/myBuildsFragment">
 
     <fragment
-        android:id="@+id/appMainFragment"
-        android:name="com.example.lolbuild.mainApp.AppMainFragment"
-        android:label="fragment_app_main"
-        tools:layout="@layout/fragment_app_main" >
-        <action
-            android:id="@+id/action_appMainFragment_to_championsFragment2"
-            app:destination="@id/championsFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/championsFragment2"
+        android:id="@+id/championsFragment"
         android:name="com.example.lolbuild.mainApp.ChampionsFragment"
         android:label="fragment_champions"
         tools:layout="@layout/fragment_champions" />
+    <fragment
+        android:id="@+id/myBuildsFragment"
+        android:name="com.example.lolbuild.mainApp.MyBuildsFragment"
+        android:label="fragment_my_builds"
+        tools:layout="@layout/fragment_my_builds" >
+        <action
+            android:id="@+id/action_myBuildsFragment_to_championsFragment"
+            app:destination="@id/championsFragment" />
+    </fragment>
 </navigation>
