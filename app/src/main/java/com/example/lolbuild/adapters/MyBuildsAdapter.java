@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuildsViewHolder> {
-    List<DocumentSnapshot> myBuilds;
-    Context context;
+    private List<DocumentSnapshot> myBuilds;
+    private Context context;
 
     public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds) {
         this.context = context;
@@ -43,17 +43,32 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
         ArrayList<Integer> situationalItems = (ArrayList<Integer>) currentBuild.get("situationalItems");
         Bitmap image = Utilities.getImageFromAssets(context, "champions", currentBuild.get("champion") + ".png");
         holder.championImageView.setImageBitmap(image);
-        for (int i=0; i<startingItems.size(); i++) {
-            Bitmap itemImage = Utilities.getImageFromAssets(context, "items", startingItems.get(i) + ".png");
-            holder.situationalItems[i].setImageBitmap(itemImage);
+        ImageView[] holderStartingItems = holder.startingItems;
+        ImageView[] holderCoreItems = holder.coreItems;
+        ImageView[] holderSituationalItems = holder.situationalItems;
+        for (int i=0; i<holderStartingItems.length; i++) {
+            if (i < startingItems.size()) {
+                Bitmap itemImage = Utilities.getImageFromAssets(context, "items", startingItems.get(i) + ".png");
+                holderStartingItems[i].setImageBitmap(itemImage);
+            } else {
+                holderStartingItems[i].setImageDrawable(null);
+            }
         }
-        for (int i=0; i<coreItems.size(); i++) {
-            Bitmap itemImage = Utilities.getImageFromAssets(context, "items", coreItems.get(i) + ".png");
-            holder.coreItems[i].setImageBitmap(itemImage);
+        for (int i=0; i<holderCoreItems.length; i++) {
+            if (i < coreItems.size()) {
+                Bitmap itemImage = Utilities.getImageFromAssets(context, "items", coreItems.get(i) + ".png");
+                holderCoreItems[i].setImageBitmap(itemImage);
+            } else {
+                holderCoreItems[i].setImageDrawable(null);
+            }
         }
-        for (int i=0; i<situationalItems.size(); i++) {
-            Bitmap itemImage = Utilities.getImageFromAssets(context, "items", situationalItems.get(i) + ".png");
-            holder.situationalItems[i].setImageBitmap(itemImage);
+        for (int i=0; i<holderSituationalItems.length; i++) {
+            if (i < situationalItems.size()) {
+                Bitmap itemImage = Utilities.getImageFromAssets(context, "items", situationalItems.get(i) + ".png");
+                holderSituationalItems[i].setImageBitmap(itemImage);
+            } else {
+                holderSituationalItems[i].setImageDrawable(null);
+            }
         }
     }
 
@@ -62,7 +77,7 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
         return myBuilds.size();
     }
 
-    public class MyBuildsViewHolder extends RecyclerView.ViewHolder {
+    class MyBuildsViewHolder extends RecyclerView.ViewHolder {
         ImageView championImageView;
         ImageView startingItem1;
         ImageView startingItem2;

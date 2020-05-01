@@ -1,194 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:padding="6dip">
 
     <ImageView
         android:id="@+id/championImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginRight="6dip"
         app:srcCompat="@drawable/ic_launcher_background" />
 
-    <TextView
-        android:id="@+id/startingItemsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Starting items"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/championImageView"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
-        android:id="@+id/startingItemsLinearLayout"
-        android:layout_width="wrap_content"
+        android:id="@+id/itemsLinearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@drawable/items_divider"
-        android:orientation="horizontal"
-        android:showDividers="middle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/championImageView"
-        app:layout_constraintTop_toBottomOf="@+id/startingItemsTextView">
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/startingItem1"
+        <TextView
+            android:id="@+id/startingItemsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            android:text="Starting items" />
 
-        <ImageView
-            android:id="@+id/startingItem2"
+        <LinearLayout
+            android:id="@+id/startingItemsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            android:divider="@drawable/items_divider"
+            android:orientation="horizontal"
+            android:showDividers="middle">
 
-        <ImageView
-            android:id="@+id/startingItem3"
+            <ImageView
+                android:id="@+id/startingItem1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/startingItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/startingItem3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/startingItem4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/startingItem5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/startingItem6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/coreItemsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            android:text="Example build" />
 
-        <ImageView
-            android:id="@+id/startingItem4"
+        <LinearLayout
+            android:id="@+id/coreItemsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            android:divider="@drawable/items_divider"
+            android:orientation="horizontal"
+            android:showDividers="middle">
 
-        <ImageView
-            android:id="@+id/startingItem5"
+            <ImageView
+                android:id="@+id/coreItem1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/coreItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/coreItem3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/coreItem4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/coreItem5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/coreItem6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/situationalItemsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            android:text="Situational items" />
 
-        <ImageView
-            android:id="@+id/startingItem6"
+        <LinearLayout
+            android:id="@+id/situationalItemsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            android:divider="@drawable/items_divider"
+            android:orientation="horizontal"
+            android:showDividers="middle">
+
+            <ImageView
+                android:id="@+id/situationalItem1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/situationalItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/situationalItem3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/situationalItem4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/situationalItem5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/situationalItem6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/coreItemsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Example build"
-        app:layout_constraintBottom_toTopOf="@+id/coreItemsLinearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toEndOf="@+id/championImageView" />
-
-    <LinearLayout
-        android:id="@+id/coreItemsLinearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/items_divider"
-        android:orientation="horizontal"
-        android:showDividers="middle"
-        app:layout_constraintBottom_toTopOf="@+id/situationalItemsTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/championImageView"
-        app:layout_constraintTop_toBottomOf="@+id/startingItemsLinearLayout">
-
-        <ImageView
-            android:id="@+id/coreItem1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/coreItem2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/coreItem3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/coreItem4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/coreItem5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/coreItem6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/situationalItemsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Starting items"
-        app:layout_constraintBottom_toTopOf="@+id/situationalItemsLinearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.562"
-        app:layout_constraintStart_toEndOf="@+id/championImageView" />
-
-    <LinearLayout
-        android:id="@+id/situationalItemsLinearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/items_divider"
-        android:orientation="horizontal"
-        android:showDividers="middle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/championImageView">
-
-        <ImageView
-            android:id="@+id/situationalItem1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/situationalItem2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/situationalItem3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/situationalItem4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/situationalItem5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/situationalItem6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.MyBuildsAdapter;
@@ -38,16 +39,17 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class MyBuildsFragment extends Fragment {
-    RecyclerView recyclerView;
-    LinearLayoutManager linearLayoutManager;
-//    MyBuildAdapter myBuildAdapter;
-    FloatingActionButton createBuildFAB;
-    NavController navController;
-    FirebaseAuth auth;
-    private String userID;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private FloatingActionButton createBuildFAB;
+    private TextView errorTextView;
+    private NavController navController;
+    private FirebaseAuth auth;
     private static List<DocumentSnapshot> myBuilds;
     private ArrayList<String> savedBuildsIds;
     private MyBuildsAdapter myBuildsAdapter;
+    private String errorMessage;
+    private FirebaseFirestore db;
 
     public MyBuildsFragment() {
         // Required empty public constructor
@@ -60,33 +62,42 @@ public class MyBuildsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
-        userID = auth.getUid();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userAccount = db.collection("accounts").document(userID);
-        Task<DocumentSnapshot> task = userAccount.get();
-        savedBuildsIds = null;
-        task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                savedBuildsIds = (ArrayList<String>) task.getResult().get("savedBuilds");
-                Query builds = db.collection("builds").whereIn(FieldPath.documentId(), savedBuildsIds);
-                Task<QuerySnapshot> querySnapshot = builds.get();
-                querySnapshot.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        myBuilds = querySnapshot.getResult().getDocuments();
-                        MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), myBuilds);
-                        recyclerView.setAdapter(myBuildsAdapter);
-                    }
-                });
-            }
-        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        String userID = auth.getCurrentUser().getUid();
+        DocumentReference userAccount = db.collection("accounts").document(userID);
+        Task<DocumentSnapshot> task = userAccount.get();
+        savedBuildsIds = null;
+        errorMessage = null;
+        task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
+                        savedBuildsIds = (ArrayList<String>) task.getResult().get("savedBuilds");
+                        Query builds = db.collection("builds").whereIn(FieldPath.documentId(), savedBuildsIds);
+                        Task<QuerySnapshot> querySnapshot = builds.get();
+                        querySnapshot.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                myBuilds = querySnapshot.getResult().getDocuments();
+                                MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), myBuilds);
+                                recyclerView.setAdapter(myBuildsAdapter);
+                            }
+                        });
+                    } else {
+                        errorMessage = "You have no builds yet.";
+                    }
+                } else {
+                    errorMessage = "Couldn't load the data.";
+                }
+            }
+        });
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_builds, container, false);
     }
@@ -99,6 +110,7 @@ public class MyBuildsFragment extends Fragment {
 //        Log.i("User", auth.getCurrentUser().toString());
 
         createBuildFAB = view.findViewById(R.id.createBuildFAB);
+        errorTextView = view.findViewById(R.id.errorTextView);
         navController = Navigation.findNavController(view);
         recyclerView = view.findViewById(R.id.myBuildsRecyclerView);
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -127,5 +139,10 @@ public class MyBuildsFragment extends Fragment {
                 navController.navigate(R.id.action_myBuildsFragment_to_championsFragment);
             }
         });
+
+        if (errorMessage != null) {
+            errorTextView.setText(errorMessage);
+            errorTextView.setAlpha(1);
+        }
     }
 }
