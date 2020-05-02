@@ -6,6 +6,8 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.ChampionsAdapter;
 import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.example.lolbuild.jobs.FetchChampions;
+import com.example.lolbuild.jobs.FetchItems;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +30,7 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
     ChampionsAdapter championsAdapter;
+    NavController navController;
 
     public ChampionsFragment() {
         // Required empty public constructor
@@ -62,6 +66,7 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
 //        FirebaseAuth auth = FirebaseAuth.getInstance();
 //        String email = auth.getCurrentUser().getEmail();
 //        Log.i("User", auth.getCurrentUser().toString());
+        navController = Navigation.findNavController(view);
         recyclerView = view.findViewById(R.id.championsRecyclerView);
         gridLayoutManager = new GridLayoutManager(getContext(),5);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -87,7 +92,7 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
     @Override
     public void processFinish(String output) {
         if (output.equals("Success")) {
-            championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions());
+            championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions(), navController);
             recyclerView.setAdapter(championsAdapter);
         }
     }

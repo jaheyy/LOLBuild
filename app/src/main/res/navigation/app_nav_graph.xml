@@ -9,7 +9,11 @@
         android:id="@+id/championsFragment"
         android:name="com.example.lolbuild.mainApp.ChampionsFragment"
         android:label="fragment_champions"
-        tools:layout="@layout/fragment_champions" />
+        tools:layout="@layout/fragment_champions" >
+        <action
+            android:id="@+id/action_championsFragment_to_addBuildFragment"
+            app:destination="@id/addBuildFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myBuildsFragment"
         android:name="com.example.lolbuild.mainApp.MyBuildsFragment"
@@ -18,5 +22,32 @@
         <action
             android:id="@+id/action_myBuildsFragment_to_championsFragment"
             app:destination="@id/championsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBuildFragment"
+        android:name="com.example.lolbuild.mainApp.AddBuildFragment"
+        android:label="fragment_add_build"
+        tools:layout="@layout/fragment_add_build" >
+        <argument
+            android:name="chosenChampion"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="chosenItem"
+            app:argType="com.example.lolbuild.models.Item"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_addBuildFragment_to_itemsFragment"
+            app:destination="@id/itemsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="com.example.lolbuild.mainApp.ItemsFragment"
+        android:label="fragment_items"
+        tools:layout="@layout/fragment_items" >
+        <action
+            android:id="@+id/action_itemsFragment_to_addBuildFragment"
+            app:destination="@id/addBuildFragment" />
     </fragment>
 </navigation>

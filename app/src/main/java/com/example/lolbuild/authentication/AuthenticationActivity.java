@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.jobs.FetchLolVersion;
+import com.example.lolbuild.models.Item;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     private static String lolVersion;
     private static ArrayList<String> champions;
+    private static ArrayList<Item> items;
 
     public static String getLolVersion() {
         return lolVersion;
@@ -28,6 +30,14 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     public static void setChampions(ArrayList<String> champions) {
         AuthenticationActivity.champions = champions;
+    }
+
+    public static ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public static void setItems(ArrayList<Item> items) {
+        AuthenticationActivity.items = items;
     }
 
     @Override

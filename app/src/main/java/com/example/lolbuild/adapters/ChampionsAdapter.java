@@ -10,9 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lolbuild.R;
+import com.example.lolbuild.mainApp.ChampionsFragment;
+import com.example.lolbuild.mainApp.ChampionsFragmentDirections;
 import com.example.lolbuild.utilities.Utilities;
 
 import java.util.ArrayList;
@@ -21,10 +25,12 @@ public class ChampionsAdapter extends RecyclerView.Adapter<ChampionsAdapter.Cham
 
     ArrayList<String> champions;
     Context context;
+    NavController navController;
 
-    public ChampionsAdapter(Context context, ArrayList<String> champions) {
+    public ChampionsAdapter(Context context, ArrayList<String> champions, NavController navController) {
         this.champions = champions;
         this.context = context;
+        this.navController = navController;
     }
 
     @NonNull
@@ -44,7 +50,10 @@ public class ChampionsAdapter extends RecyclerView.Adapter<ChampionsAdapter.Cham
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, champions.get(position), Toast.LENGTH_SHORT).show();
+                ChampionsFragmentDirections.ActionChampionsFragmentToAddBuildFragment navAction
+                        = ChampionsFragmentDirections.actionChampionsFragmentToAddBuildFragment();
+                navAction.setChosenChampion(champions.get(position));
+                navController.navigate(navAction);
             }
         });
     }
