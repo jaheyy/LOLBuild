@@ -1,5 +1,6 @@
 package com.example.lolbuild.mainApp;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,16 +16,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.lolbuild.R;
+import com.example.lolbuild.utilities.Utilities;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AddBuildFragment extends Fragment {
 
+    private String chosenChampion;
+    private int[] chosenStartingItems;
+    private int[] chosenCoreItems;
+    private int[] chosenSituationalItems;
+    ImageView championImageView;
+
+
     public AddBuildFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        chosenChampion = AddBuildFragmentArgs.fromBundle(getArguments()).getChosenChampion();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +51,7 @@ public class AddBuildFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
-        ImageView championImageView = view.findViewById(R.id.championImageView);
+        championImageView = view.findViewById(R.id.championImageView);
         ImageView startingItem1 = view.findViewById(R.id.startingItem1);
         ImageView startingItem2 = view.findViewById(R.id.startingItem2);
         ImageView startingItem3 = view.findViewById(R.id.startingItem3);
@@ -86,5 +100,14 @@ public class AddBuildFragment extends Fragment {
                 }
             });
         }
+        if (chosenChampion != null) {
+            Bitmap championImage = Utilities.getImageFromAssets(getContext(), "champions", chosenChampion + ".png");
+            championImageView.setImageBitmap(championImage);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

@@ -51,8 +51,8 @@ public class ChampionsAdapter extends RecyclerView.Adapter<ChampionsAdapter.Cham
             @Override
             public void onClick(View view) {
                 ChampionsFragmentDirections.ActionChampionsFragmentToAddBuildFragment navAction
-                        = ChampionsFragmentDirections.actionChampionsFragmentToAddBuildFragment();
-                navAction.setChosenChampion(champions.get(position));
+                        = ChampionsFragmentDirections.actionChampionsFragmentToAddBuildFragment(champions.get(position));
+//                navAction.setChosenChampion(champions.get(position));
                 navController.navigate(navAction);
             }
         });
