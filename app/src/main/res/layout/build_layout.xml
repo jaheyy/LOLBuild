@@ -11,9 +11,10 @@
         android:id="@+id/championImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginRight="6dip"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:layout_gravity="center"
+        android:layout_marginLeft="64px"
+        android:layout_marginRight="64px"
+        app:srcCompat="@drawable/googleg_disabled_color_18" />
 
     <LinearLayout
         android:id="@+id/itemsLinearLayout"

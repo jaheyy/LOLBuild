@@ -50,6 +50,7 @@ public class MyBuildsFragment extends Fragment {
     private MyBuildsAdapter myBuildsAdapter;
     private String errorMessage;
     private FirebaseFirestore db;
+    private String userID;
 
     public MyBuildsFragment() {
         // Required empty public constructor
@@ -62,14 +63,14 @@ public class MyBuildsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        userID = auth.getCurrentUser().getUid();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        auth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-        String userID = auth.getCurrentUser().getUid();
         DocumentReference userAccount = db.collection("accounts").document(userID);
         Task<DocumentSnapshot> task = userAccount.get();
         savedBuildsIds = null;
