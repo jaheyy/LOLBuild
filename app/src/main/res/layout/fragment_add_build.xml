@@ -58,38 +58,32 @@
             <ImageView
                 android:id="@+id/startingItem1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/startingItem2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/startingItem3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/startingItem4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/startingItem5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/startingItem6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <TextView
@@ -119,38 +113,32 @@
             <ImageView
                 android:id="@+id/coreItem1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/coreItem2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/coreItem3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/coreItem4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/coreItem5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/coreItem6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <TextView
@@ -181,38 +169,32 @@
             <ImageView
                 android:id="@+id/situationalItem1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/situationalItem2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/situationalItem3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/situationalItem4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/situationalItem5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/situationalItem6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_box_black_48dp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <Button
@@ -226,6 +208,33 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/situationalItemsLinearLayout" />
+
+        <ImageButton
+            android:id="@+id/addStartingItemButton"
+            android:layout_width="36dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="21dp"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_constraintStart_toEndOf="@+id/startingItemsTextView"
+            app:layout_constraintTop_toBottomOf="@+id/championTextView" />
+
+        <ImageButton
+            android:id="@+id/addCoreItemButton"
+            android:layout_width="36dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_constraintStart_toEndOf="@+id/coreItemsTextView"
+            app:layout_constraintTop_toBottomOf="@+id/startingItemsLinearLayout" />
+
+        <ImageButton
+            android:id="@+id/addSituationalItemButton"
+            android:layout_width="36dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_constraintStart_toEndOf="@+id/situationalItemsTextView"
+            app:layout_constraintTop_toBottomOf="@+id/coreItemsLinearLayout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

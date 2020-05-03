@@ -193,7 +193,6 @@ public class SignUpFragment extends Fragment {
         super.onStop();
         if (authStateListener != null) {
             auth.removeAuthStateListener(authStateListener);
-            auth.signOut();
         }
     }
 }

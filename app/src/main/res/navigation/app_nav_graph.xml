@@ -33,6 +33,11 @@
         <action
             android:id="@+id/action_addBuildFragment_to_itemsFragment"
             app:destination="@id/itemsFragment" />
+        <action
+            android:id="@+id/action_addBuildFragment_to_myBuildsFragment"
+            app:destination="@id/myBuildsFragment"
+            app:popUpTo="@id/myBuildsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/itemsFragment"

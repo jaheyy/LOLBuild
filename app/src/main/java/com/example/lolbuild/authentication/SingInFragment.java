@@ -201,7 +201,6 @@ public class SingInFragment extends Fragment {
         super.onStop();
         if (authStateListener != null) {
             auth.removeAuthStateListener(authStateListener);
-            auth.signOut();
         }
     }
 }
