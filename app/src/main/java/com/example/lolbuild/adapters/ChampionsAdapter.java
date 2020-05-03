@@ -2,6 +2,7 @@ package com.example.lolbuild.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,19 +20,22 @@ import com.example.lolbuild.R;
 import com.example.lolbuild.mainApp.ChampionsFragment;
 import com.example.lolbuild.mainApp.ChampionsFragmentDirections;
 import com.example.lolbuild.utilities.Utilities;
+import com.example.lolbuild.viewModels.BuildViewModel;
 
 import java.util.ArrayList;
 
 public class ChampionsAdapter extends RecyclerView.Adapter<ChampionsAdapter.ChampionsViewHolder> {
 
-    ArrayList<String> champions;
-    Context context;
-    NavController navController;
+    private ArrayList<String> champions;
+    private Context context;
+    private NavController navController;
+    private BuildViewModel buildViewModel;
 
-    public ChampionsAdapter(Context context, ArrayList<String> champions, NavController navController) {
+    public ChampionsAdapter(Context context, ArrayList<String> champions, NavController navController, BuildViewModel buildViewModel) {
         this.champions = champions;
         this.context = context;
         this.navController = navController;
+        this.buildViewModel = buildViewModel;
     }
 
     @NonNull
@@ -50,10 +55,8 @@ public class ChampionsAdapter extends RecyclerView.Adapter<ChampionsAdapter.Cham
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChampionsFragmentDirections.ActionChampionsFragmentToAddBuildFragment navAction
-                        = ChampionsFragmentDirections.actionChampionsFragmentToAddBuildFragment(champions.get(position));
-//                navAction.setChosenChampion(champions.get(position));
-                navController.navigate(navAction);
+                buildViewModel.setChampion(champions.get(position));
+                navController.navigate(R.id.action_championsFragment_to_addBuildFragment);
             }
         });
     }

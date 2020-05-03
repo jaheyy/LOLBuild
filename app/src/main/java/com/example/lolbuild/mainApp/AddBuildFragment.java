@@ -1,11 +1,13 @@
 package com.example.lolbuild.mainApp;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -17,17 +19,16 @@ import android.widget.ImageView;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.utilities.Utilities;
+import com.example.lolbuild.viewModels.BuildViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AddBuildFragment extends Fragment {
 
-    private String chosenChampion;
     private int[] chosenStartingItems;
     private int[] chosenCoreItems;
     private int[] chosenSituationalItems;
-    ImageView championImageView;
 
 
     public AddBuildFragment() {
@@ -37,7 +38,6 @@ public class AddBuildFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        chosenChampion = AddBuildFragmentArgs.fromBundle(getArguments()).getChosenChampion();
     }
 
     @Override
@@ -50,8 +50,9 @@ public class AddBuildFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        BuildViewModel buildViewModel = new ViewModelProvider(requireActivity()).get(BuildViewModel.class);
         NavController navController = Navigation.findNavController(view);
-        championImageView = view.findViewById(R.id.championImageView);
+        ImageView championImageView = view.findViewById(R.id.championImageView);
         ImageView startingItem1 = view.findViewById(R.id.startingItem1);
         ImageView startingItem2 = view.findViewById(R.id.startingItem2);
         ImageView startingItem3 = view.findViewById(R.id.startingItem3);
@@ -78,7 +79,9 @@ public class AddBuildFragment extends Fragment {
             startingItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navController.navigate(R.id.action_addBuildFragment_to_itemsFragment);
+                    AddBuildFragmentDirections.ActionAddBuildFragmentToItemsFragment navAction
+                            = AddBuildFragmentDirections.actionAddBuildFragmentToItemsFragment(0);
+                    navController.navigate(navAction);
                 }
             });
         }
@@ -87,7 +90,9 @@ public class AddBuildFragment extends Fragment {
             coreItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navController.navigate(R.id.action_addBuildFragment_to_itemsFragment);
+                    AddBuildFragmentDirections.ActionAddBuildFragmentToItemsFragment navAction
+                            = AddBuildFragmentDirections.actionAddBuildFragmentToItemsFragment(1);
+                    navController.navigate(navAction);
                 }
             });
         }
@@ -96,14 +101,15 @@ public class AddBuildFragment extends Fragment {
             situationalItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navController.navigate(R.id.action_addBuildFragment_to_itemsFragment);
+                    AddBuildFragmentDirections.ActionAddBuildFragmentToItemsFragment navAction
+                            = AddBuildFragmentDirections.actionAddBuildFragmentToItemsFragment(2);
+                    navController.navigate(navAction);
                 }
             });
         }
-        if (chosenChampion != null) {
-            Bitmap championImage = Utilities.getImageFromAssets(getContext(), "champions", chosenChampion + ".png");
-            championImageView.setImageBitmap(championImage);
-        }
+
+        Bitmap championImage = Utilities.getImageFromAssets(getContext(), "champions", buildViewModel.getChampion() + ".png");
+        championImageView.setImageBitmap(championImage);
     }
 
     @Override

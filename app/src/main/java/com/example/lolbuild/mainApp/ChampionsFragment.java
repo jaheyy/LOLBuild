@@ -6,6 +6,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,6 +21,7 @@ import com.example.lolbuild.adapters.ChampionsAdapter;
 import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.example.lolbuild.jobs.FetchChampions;
 import com.example.lolbuild.jobs.FetchItems;
+import com.example.lolbuild.viewModels.BuildViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,10 +29,11 @@ import com.example.lolbuild.jobs.FetchItems;
 public class ChampionsFragment extends Fragment implements FetchChampions.AsyncResponse {
 
     private static String championsJson;
-    RecyclerView recyclerView;
-    GridLayoutManager gridLayoutManager;
-    ChampionsAdapter championsAdapter;
-    NavController navController;
+    private RecyclerView recyclerView;
+    private GridLayoutManager gridLayoutManager;
+    private ChampionsAdapter championsAdapter;
+    private NavController navController;
+    private BuildViewModel buildViewModel;
 
     public ChampionsFragment() {
         // Required empty public constructor
@@ -63,6 +66,7 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        buildViewModel = new ViewModelProvider(requireActivity()).get(BuildViewModel.class);
 //        FirebaseAuth auth = FirebaseAuth.getInstance();
 //        String email = auth.getCurrentUser().getEmail();
 //        Log.i("User", auth.getCurrentUser().toString());
@@ -92,7 +96,7 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
     @Override
     public void processFinish(String output) {
         if (output.equals("Success")) {
-            championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions(), navController);
+            championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions(), navController, buildViewModel);
             recyclerView.setAdapter(championsAdapter);
         }
     }

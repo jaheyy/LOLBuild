@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_champions" >
         <action
             android:id="@+id/action_championsFragment_to_addBuildFragment"
-            app:destination="@id/addBuildFragment" />
+            app:destination="@id/addBuildFragment"
+            app:popUpTo="@id/myBuildsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/myBuildsFragment"
@@ -28,15 +30,6 @@
         android:name="com.example.lolbuild.mainApp.AddBuildFragment"
         android:label="fragment_add_build"
         tools:layout="@layout/fragment_add_build" >
-        <argument
-            android:name="chosenChampion"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="chosenItem"
-            app:argType="com.example.lolbuild.models.Item"
-            app:nullable="true"
-            android:defaultValue="@null" />
         <action
             android:id="@+id/action_addBuildFragment_to_itemsFragment"
             app:destination="@id/itemsFragment" />
@@ -49,6 +42,10 @@
         <action
             android:id="@+id/action_itemsFragment_to_addBuildFragment"
             app:destination="@id/addBuildFragment"
+            app:popUpTo="@id/addBuildFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="itemSet"
+            app:argType="integer" />
     </fragment>
 </navigation>

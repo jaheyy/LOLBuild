@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,6 +21,7 @@ import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.example.lolbuild.jobs.FetchChampions;
 import com.example.lolbuild.jobs.FetchItems;
 import com.example.lolbuild.models.Item;
+import com.example.lolbuild.viewModels.BuildViewModel;
 
 import java.util.ArrayList;
 
@@ -32,6 +34,8 @@ public class ItemsFragment extends Fragment implements FetchItems.AsyncResponse 
     private NavController navController;
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
+    private BuildViewModel buildViewModel;
+    private int itemSet;
 
     public ItemsFragment() {
         // Required empty public constructor
@@ -55,6 +59,8 @@ public class ItemsFragment extends Fragment implements FetchItems.AsyncResponse 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        itemSet = ItemsFragmentArgs.fromBundle(getArguments()).getItemSet();
+        buildViewModel = new ViewModelProvider(requireActivity()).get(BuildViewModel.class);
         navController = Navigation.findNavController(view);
         recyclerView = view.findViewById(R.id.itemsRecyclerView);
         gridLayoutManager = new GridLayoutManager(getContext(),8);
@@ -81,7 +87,7 @@ public class ItemsFragment extends Fragment implements FetchItems.AsyncResponse 
     @Override
     public void processFinish(String output) {
         if (output.equals("Success")) {
-            ItemsAdapter itemsAdapter = new ItemsAdapter(getContext(), AuthenticationActivity.getItems(), navController);
+            ItemsAdapter itemsAdapter = new ItemsAdapter(getContext(), AuthenticationActivity.getItems(), navController, buildViewModel, itemSet);
             recyclerView.setAdapter(itemsAdapter);
         }
     }
