@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/championsFragment"
-        android:name="com.example.lolbuild.mainApp.ChampionsFragment"
+        android:name="com.example.lolbuild.mainApp.myBuilds.ChampionsFragment"
         android:label="fragment_champions"
         tools:layout="@layout/fragment_champions" >
         <action
@@ -18,16 +18,19 @@
     </fragment>
     <fragment
         android:id="@+id/myBuildsFragment"
-        android:name="com.example.lolbuild.mainApp.MyBuildsFragment"
+        android:name="com.example.lolbuild.mainApp.myBuilds.MyBuildsFragment"
         android:label="fragment_my_builds"
         tools:layout="@layout/fragment_my_builds" >
         <action
             android:id="@+id/action_myBuildsFragment_to_championsFragment"
             app:destination="@id/championsFragment" />
+        <action
+            android:id="@+id/action_myBuildsFragment_to_settingsFragment2"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBuildFragment"
-        android:name="com.example.lolbuild.mainApp.AddBuildFragment"
+        android:name="com.example.lolbuild.mainApp.myBuilds.AddBuildFragment"
         android:label="fragment_add_build"
         tools:layout="@layout/fragment_add_build" >
         <action
@@ -41,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemsFragment"
-        android:name="com.example.lolbuild.mainApp.ItemsFragment"
+        android:name="com.example.lolbuild.mainApp.myBuilds.ItemsFragment"
         android:label="fragment_items"
         tools:layout="@layout/fragment_items" >
         <action
@@ -52,5 +55,62 @@
         <argument
             android:name="itemSet"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.lolbuild.mainApp.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_changeEmailFragment"
+            app:destination="@id/changeEmailFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_changeNameFragment"
+            app:destination="@id/changeNameFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeEmailFragment"
+        android:name="com.example.lolbuild.mainApp.settings.ChangeEmailFragment"
+        android:label="fragment_change_email"
+        tools:layout="@layout/fragment_change_email" >
+        <action
+            android:id="@+id/action_changeEmailFragment_to_reauthenticateFragment"
+            app:destination="@id/reauthenticateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeNameFragment"
+        android:name="com.example.lolbuild.mainApp.settings.ChangeNameFragment"
+        android:label="fragment_change_name"
+        tools:layout="@layout/fragment_change_name" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.lolbuild.mainApp.settings.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_reauthenticateFragment"
+            app:destination="@id/reauthenticateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reauthenticateFragment"
+        android:name="com.example.lolbuild.mainApp.settings.ReauthenticateFragment"
+        android:label="fragment_reauthenticate"
+        tools:layout="@layout/fragment_reauthenticate" >
+        <argument
+            android:name="newPassword"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="newEmail"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_reauthenticateFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

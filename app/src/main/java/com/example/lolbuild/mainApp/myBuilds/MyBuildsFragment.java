@@ -1,4 +1,4 @@
-package com.example.lolbuild.mainApp;
+package com.example.lolbuild.mainApp.myBuilds;
 
 import android.os.Bundle;
 
@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.MyBuildsAdapter;
-import com.example.lolbuild.jobs.FetchMyBuilds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

@@ -1,4 +1,4 @@
-package com.example.lolbuild.mainApp;
+package com.example.lolbuild.mainApp.myBuilds;
 
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lolbuild.R;
+import com.example.lolbuild.mainApp.myBuilds.AddBuildFragmentDirections;
 import com.example.lolbuild.models.Item;
 import com.example.lolbuild.utilities.Utilities;
 import com.example.lolbuild.viewModels.BuildViewModel;

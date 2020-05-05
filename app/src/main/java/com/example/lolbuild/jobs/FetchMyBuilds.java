@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 
-import com.example.lolbuild.mainApp.MyBuildsFragment;
+import com.example.lolbuild.mainApp.myBuilds.MyBuildsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;

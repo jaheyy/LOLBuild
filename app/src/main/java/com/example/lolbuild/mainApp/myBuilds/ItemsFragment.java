@@ -1,8 +1,7 @@
-package com.example.lolbuild.mainApp;
+package com.example.lolbuild.mainApp.myBuilds;
 
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,62 +16,55 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lolbuild.R;
-import com.example.lolbuild.adapters.ChampionsAdapter;
+import com.example.lolbuild.adapters.ItemsAdapter;
 import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.example.lolbuild.jobs.FetchChampions;
 import com.example.lolbuild.jobs.FetchItems;
+import com.example.lolbuild.mainApp.myBuilds.ItemsFragmentArgs;
+import com.example.lolbuild.models.Item;
 import com.example.lolbuild.viewModels.BuildViewModel;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChampionsFragment extends Fragment implements FetchChampions.AsyncResponse {
+public class ItemsFragment extends Fragment implements FetchItems.AsyncResponse {
 
-    private static String championsJson;
+    private static ArrayList<Item> items;
+    private NavController navController;
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
-    private ChampionsAdapter championsAdapter;
-    private NavController navController;
     private BuildViewModel buildViewModel;
+    private int itemSet;
 
-    public ChampionsFragment() {
+    public ItemsFragment() {
         // Required empty public constructor
     }
-
-    public static String getChampionsJson() {
-        return championsJson;
-    }
-
-    public static void setChampionsJson(String championsJson) {
-        ChampionsFragment.championsJson = championsJson;
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FetchChampions fetchChampions = new FetchChampions();
-        fetchChampions.setDelegate(this);
-        fetchChampions.execute();
+        FetchItems fetchItems = new FetchItems();
+        fetchItems.setDelegate(this);
+        fetchItems.execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_champions, container, false);
+        return inflater.inflate(R.layout.fragment_items, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        itemSet = ItemsFragmentArgs.fromBundle(getArguments()).getItemSet();
         buildViewModel = new ViewModelProvider(requireActivity()).get(BuildViewModel.class);
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        String email = auth.getCurrentUser().getEmail();
-//        Log.i("User", auth.getCurrentUser().toString());
         navController = Navigation.findNavController(view);
-        recyclerView = view.findViewById(R.id.championsRecyclerView);
-        gridLayoutManager = new GridLayoutManager(getContext(),5);
+        recyclerView = view.findViewById(R.id.itemsRecyclerView);
+        gridLayoutManager = new GridLayoutManager(getContext(),8);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(new RecyclerView.Adapter() {
             @NonNull
@@ -96,8 +88,8 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
     @Override
     public void processFinish(String output) {
         if (output.equals("Success")) {
-            championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions(), navController, buildViewModel);
-            recyclerView.setAdapter(championsAdapter);
+            ItemsAdapter itemsAdapter = new ItemsAdapter(getContext(), AuthenticationActivity.getItems(), navController, buildViewModel, itemSet);
+            recyclerView.setAdapter(itemsAdapter);
         }
     }
 }
