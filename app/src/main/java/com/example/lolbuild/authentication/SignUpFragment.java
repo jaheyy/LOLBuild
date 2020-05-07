@@ -115,7 +115,7 @@ public class SignUpFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         validator = new Validator(this);
-        validationListener = new Validator.ValidationListener() {
+        validator.setValidationListener(new Validator.ValidationListener() {
             @Override
             public void onValidationSucceeded() {
                 final String email = emailEditText.getText().toString();
@@ -150,7 +150,7 @@ public class SignUpFragment extends Fragment {
                     }
                 }
             }
-        };
+        });
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();

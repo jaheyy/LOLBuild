@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_reauthenticateFragment"
+            app:destination="@id/reauthenticateFragment" />
     </fragment>
     <fragment
         android:id="@+id/changeEmailFragment"
@@ -112,5 +115,9 @@
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/settingsFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="deleteAccount"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

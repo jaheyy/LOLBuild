@@ -1,5 +1,6 @@
 package com.example.lolbuild.mainApp.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lolbuild.R;
+import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -25,6 +28,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -73,8 +77,10 @@ public class ReauthenticateFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         auth = FirebaseAuth.getInstance();
 
-        String newEmail = ReauthenticateFragmentArgs.fromBundle(getArguments()).getNewEmail();
-        String newPassword = ReauthenticateFragmentArgs.fromBundle(getArguments()).getNewPassword();
+        ReauthenticateFragmentArgs args = ReauthenticateFragmentArgs.fromBundle(getArguments());
+        String newEmail = args.getNewEmail();
+        String newPassword = args.getNewPassword();
+        boolean deleteAccount = args.getDeleteAccount();
 
         validator = new Validator(this);
         Validator.ValidationListener validationListener = new Validator.ValidationListener() {
@@ -135,6 +141,33 @@ public class ReauthenticateFragment extends Fragment {
                                                 navController.popBackStack();
                                                 Toast.makeText(getContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
                                             }
+                                        }
+                                    }
+                                });
+                            } else if (deleteAccount) {
+                                auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getContext(), "Successfully deleted your account. Wait 5 second to sign you out.", Toast.LENGTH_SHORT).show();
+                                            Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                public void run() {
+                                                    auth.signOut();
+                                                    Intent myIntent = new Intent(getContext(), AuthenticationActivity.class);
+                                                    getActivity().finish();
+                                                    startActivity(myIntent);
+                                                }
+                                            }, 5000);
+                                        }
+                                        try {
+                                            throw task.getException();
+                                        } catch (FirebaseAuthInvalidUserException e) {
+                                            Toast.makeText(getActivity(), "Your account have been disabled, deleted or your credentials are no longer valid.", Toast.LENGTH_SHORT).show();
+                                            navController.popBackStack();
+                                        } catch (Exception e) {
+                                            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                                            navController.popBackStack();
                                         }
                                     }
                                 });

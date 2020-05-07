@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.lolbuild.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainAppActivity extends AppCompatActivity {
 
@@ -20,5 +21,11 @@ public class MainAppActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FirebaseAuth.getInstance().signOut();
     }
 }

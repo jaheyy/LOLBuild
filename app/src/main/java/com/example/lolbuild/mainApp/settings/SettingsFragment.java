@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -55,6 +56,14 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_settingsFragment_to_changeNameFragment);
+            }
+        });
+
+        view.findViewById(R.id.deleteAccountButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ConfirmDialogFragment(getActivity(), getContext(), navController)
+                        .show(getActivity().getSupportFragmentManager(), "ConfirmDialog");
             }
         });
     }
