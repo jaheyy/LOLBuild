@@ -66,7 +66,9 @@ public class ConfirmDialogFragment extends DialogFragment {
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthInvalidUserException e) {
-                                Toast.makeText(context, "Your account have been disabled, deleted or your credentials are no longer valid.", Toast.LENGTH_SHORT).show();
+                                Intent myIntent = new Intent(getContext(), AuthenticationActivity.class);
+                                getActivity().finish();
+                                startActivity(myIntent);
                             } catch (FirebaseAuthRecentLoginRequiredException e) {
                                 SettingsFragmentDirections
                                         .ActionSettingsFragmentToReauthenticateFragment navAction

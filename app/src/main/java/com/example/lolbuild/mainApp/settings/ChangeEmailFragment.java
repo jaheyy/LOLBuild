@@ -104,8 +104,9 @@ public class ChangeEmailFragment extends Fragment {
                                 navController.popBackStack();
                                 Toast.makeText(getContext(), "The email address has already been taken.", Toast.LENGTH_SHORT).show();
                             } catch (FirebaseAuthInvalidUserException e) {
-                                navController.popBackStack();
-                                Toast.makeText(getContext(), "Your account has been disabled, deleted, or credentials are no longer valid.", Toast.LENGTH_SHORT).show();
+                                Intent myIntent = new Intent(getContext(), AuthenticationActivity.class);
+                                getActivity().finish();
+                                startActivity(myIntent);
                             } catch(FirebaseAuthRecentLoginRequiredException e) {
                                 ChangeEmailFragmentDirections.ActionChangeEmailFragmentToReauthenticateFragment navAction
                                         = ChangeEmailFragmentDirections.actionChangeEmailFragmentToReauthenticateFragment(null, emailEditText.getText().toString());

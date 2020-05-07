@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.authentication.AuthenticationActivity;
+import com.example.lolbuild.mainApp.MainAppActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -99,7 +100,9 @@ public class ChangePasswordFragment extends Fragment {
                                         throw task.getException();
                                     }
                                 } catch (FirebaseAuthInvalidUserException e) {
-                                    Toast.makeText(getContext(), "Your account has been disabled, deleted, or your credential are no longer valid. Try to resgin in.", Toast.LENGTH_SHORT).show();
+                                    Intent myIntent = new Intent(getContext(), AuthenticationActivity.class);
+                                    getActivity().finish();
+                                    startActivity(myIntent);
                                 } catch (FirebaseAuthRecentLoginRequiredException e) {
                                     ChangePasswordFragmentDirections.ActionChangePasswordFragmentToReauthenticateFragment navAction
                                             = ChangePasswordFragmentDirections.actionChangePasswordFragmentToReauthenticateFragment

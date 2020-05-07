@@ -28,7 +28,6 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -110,8 +109,9 @@ public class ReauthenticateFragment extends Fragment {
                                                 navController.popBackStack();
                                                 Toast.makeText(getContext(), "The email address has already been taken.", Toast.LENGTH_SHORT).show();
                                             } catch (FirebaseAuthInvalidUserException e) {
-                                                navController.popBackStack();
-                                                Toast.makeText(getContext(), "Your account has been disabled, deleted, or credentials are no longer valid.", Toast.LENGTH_SHORT).show();
+                                                Intent myIntent = new Intent(getContext(), AuthenticationActivity.class);
+                                                getActivity().finish();
+                                                startActivity(myIntent);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                                 navController.popBackStack();
@@ -134,8 +134,9 @@ public class ReauthenticateFragment extends Fragment {
                                                 navController.popBackStack();
                                                 Toast.makeText(getContext(), "Provided password is too weak.", Toast.LENGTH_SHORT).show();
                                             } catch (FirebaseAuthInvalidUserException e) {
-                                                navController.popBackStack();
-                                                Toast.makeText(getContext(), "Your account has been disabled, deleted, or credentials are no longer valid.", Toast.LENGTH_SHORT).show();
+                                                Intent myIntent = new Intent(getContext(), AuthenticationActivity.class);
+                                                getActivity().finish();
+                                                startActivity(myIntent);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                                 navController.popBackStack();
@@ -163,8 +164,9 @@ public class ReauthenticateFragment extends Fragment {
                                         try {
                                             throw task.getException();
                                         } catch (FirebaseAuthInvalidUserException e) {
-                                            Toast.makeText(getActivity(), "Your account have been disabled, deleted or your credentials are no longer valid.", Toast.LENGTH_SHORT).show();
-                                            navController.popBackStack();
+                                            Intent myIntent = new Intent(getContext(), AuthenticationActivity.class);
+                                            getActivity().finish();
+                                            startActivity(myIntent);
                                         } catch (Exception e) {
                                             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
                                             navController.popBackStack();
