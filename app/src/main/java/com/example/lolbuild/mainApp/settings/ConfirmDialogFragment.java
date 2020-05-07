@@ -52,7 +52,7 @@ public class ConfirmDialogFragment extends DialogFragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(context, "Successfully deleted your account. Wait 5 second to sign you out.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Successfully deleted your account. Waiting 5 second to sign you out.", Toast.LENGTH_SHORT).show();
                                 Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     public void run() {
