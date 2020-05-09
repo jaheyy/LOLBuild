@@ -45,9 +45,6 @@ import java.util.Map;
  */
 public class AddBuildFragment extends Fragment {
 
-    private int[] chosenStartingItems;
-    private int[] chosenCoreItems;
-    private int[] chosenSituationalItems;
     private BuildViewModel buildViewModel;
     private String userID;
     private FirebaseFirestore db;
@@ -112,10 +109,20 @@ public class AddBuildFragment extends Fragment {
         Bitmap championImage = Utilities.getImageFromAssets(getContext(), "champions", buildViewModel.getChampion() + ".png");
         championImageView.setImageBitmap(championImage);
 
+
         for (int i = 0; i < startingItems.length; i++) {
             if (chosenStartingItems.size() > i) {
                 Bitmap bitmap = Utilities.getImageFromAssets(getContext(), "items", chosenStartingItems.get(i).getImagePath());
                 startingItems[i].setImageBitmap(bitmap);
+                int finalI = i;
+                startingItems[i].setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        chosenStartingItems.remove(finalI);
+                        navController.navigate(R.id.action_addBuildFragment_self);
+                        return false;
+                    }
+                });
             } else {
                 break;
             }
@@ -139,6 +146,15 @@ public class AddBuildFragment extends Fragment {
             if (chosenCoreItems.size() > i) {
                 Bitmap bitmap = Utilities.getImageFromAssets(getContext(), "items", chosenCoreItems.get(i).getImagePath());
                 coreItems[i].setImageBitmap(bitmap);
+                int finalI = i;
+                coreItems[i].setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        chosenCoreItems.remove(finalI);
+                        navController.navigate(R.id.action_addBuildFragment_self);
+                        return false;
+                    }
+                });
             } else {
                 break;
             }
@@ -161,6 +177,15 @@ public class AddBuildFragment extends Fragment {
             if (chosenSituationalItems.size() > i) {
                 Bitmap bitmap = Utilities.getImageFromAssets(getContext(), "items", chosenSituationalItems.get(i).getImagePath());
                 situationalItems[i].setImageBitmap(bitmap);
+                int finalI = i;
+                situationalItems[i].setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        chosenSituationalItems.remove(finalI);
+                        navController.navigate(R.id.action_addBuildFragment_self);
+                        return false;
+                    }
+                });
             } else {
                 break;
             }
