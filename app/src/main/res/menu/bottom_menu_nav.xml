@@ -8,7 +8,7 @@
         android:orderInCategory="1"
         android:icon="@drawable/ic_home_black_24dp"/>
 
-    <item android:id="@+id/explore"
+    <item android:id="@+id/exploreFragment"
         android:title="Explore"
         app:showAsAction="always"
         android:orderInCategory="2"

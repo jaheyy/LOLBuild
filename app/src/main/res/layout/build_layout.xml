@@ -16,9 +16,10 @@
         android:layout_marginRight="64px"
         app:srcCompat="@drawable/googleg_disabled_color_18" />
 
+
     <LinearLayout
         android:id="@+id/itemsLinearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
@@ -176,6 +177,34 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_home_black_24dp" />
         </LinearLayout>
+
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/forkBuildImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="32px"
+        android:layout_marginRight="16px"
+        app:srcCompat="@drawable/ic_add_box_green_36dp" />
+
+    <ImageView
+        android:id="@+id/editBuildImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+    <ImageView
+        android:id="@+id/deleteBuildImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+        app:srcCompat="@drawable/ic_delete_forever_black_24dp" />
 
 </LinearLayout>

@@ -80,16 +80,18 @@ public class MyBuildsFragment extends Fragment {
                 if (task.isSuccessful()) {
                     if (task.getResult().exists()) {
                         savedBuildsIds = (ArrayList<String>) task.getResult().get("savedBuilds");
-                        Query builds = db.collection("builds").whereIn(FieldPath.documentId(), savedBuildsIds);
-                        Task<QuerySnapshot> querySnapshot = builds.get();
-                        querySnapshot.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                myBuilds = querySnapshot.getResult().getDocuments();
-                                MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), myBuilds);
-                                recyclerView.setAdapter(myBuildsAdapter);
-                            }
-                        });
+                        if (savedBuildsIds.size() != 0) {
+                            Query builds = db.collection("builds").whereIn(FieldPath.documentId(), savedBuildsIds);
+                            Task<QuerySnapshot> querySnapshot = builds.get();
+                            querySnapshot.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    myBuilds = querySnapshot.getResult().getDocuments();
+                                    MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), myBuilds, false, true, true, userID, navController);
+                                    recyclerView.setAdapter(myBuildsAdapter);
+                                }
+                            });
+                        }
                     } else {
                         errorMessage = "You have no builds yet.";
                     }

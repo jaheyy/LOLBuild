@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lolbuild.R;
@@ -21,6 +23,30 @@ import java.util.List;
 public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuildsViewHolder> {
     private List<DocumentSnapshot> myBuilds;
     private Context context;
+    private boolean showAdd;
+    private boolean showEdit;
+    private boolean showDelete;
+    private String userID;
+    private NavController navController;
+
+    public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds, boolean showAdd, boolean showEdit, boolean showDelete, String userID) {
+        this.myBuilds = myBuilds;
+        this.context = context;
+        this.showAdd = showAdd;
+        this.showEdit = showEdit;
+        this.showDelete = showDelete;
+        this.userID = userID;
+    }
+
+    public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds, boolean showAdd, boolean showEdit, boolean showDelete, String userID, NavController navController) {
+        this.myBuilds = myBuilds;
+        this.context = context;
+        this.showAdd = showAdd;
+        this.showEdit = showEdit;
+        this.showDelete = showDelete;
+        this.userID = userID;
+        this.navController = navController;
+    }
 
     public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds) {
         this.context = context;
@@ -70,6 +96,39 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
                 holderSituationalItems[i].setImageDrawable(null);
             }
         }
+
+        if (showAdd) {
+            holder.forkBuildIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utilities.forkBuild(userID, currentBuild.getId(), context);
+                }
+            });
+        } else {
+            holder.forkBuildIcon.setImageDrawable(null);
+        }
+
+        if (showDelete) {
+            holder.deleteBuildIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utilities.deleteBuild(userID, currentBuild.getId(), context, navController);
+                }
+            });
+        } else {
+            holder.deleteBuildIcon.setImageDrawable(null);
+        }
+
+        if (showEdit) {
+            holder.editBuildIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    EditBuild(currentBuild.getId());
+                }
+            });
+        } else {
+            holder.editBuildIcon.setImageDrawable(null);
+        }
     }
 
     @Override
@@ -78,6 +137,9 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
     }
 
     class MyBuildsViewHolder extends RecyclerView.ViewHolder {
+        ImageView forkBuildIcon;
+        ImageView editBuildIcon;
+        ImageView deleteBuildIcon;
         ImageView championImageView;
         ImageView startingItem1;
         ImageView startingItem2;
@@ -102,6 +164,9 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
         ImageView[] situationalItems;
         public MyBuildsViewHolder(@NonNull View itemView) {
             super(itemView);
+            forkBuildIcon = itemView.findViewById(R.id.forkBuildImageView);
+            editBuildIcon = itemView.findViewById(R.id.editBuildImageView);
+            deleteBuildIcon = itemView.findViewById(R.id.deleteBuildImageView);
             championImageView = itemView.findViewById(R.id.championImageView);
             startingItem1 = itemView.findViewById(R.id.startingItem1);
             startingItem2 = itemView.findViewById(R.id.startingItem2);

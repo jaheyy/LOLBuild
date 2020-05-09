@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 
+import com.example.lolbuild.mainApp.explore.ExploreFragment;
 import com.example.lolbuild.mainApp.myBuilds.MyBuildsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,14 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FetchMyBuilds extends AsyncTask<Void, Void, Void> {
+public class FetchBuilds extends AsyncTask<Void, Void, Void> {
     private AsyncResponse delegate = null;
     private String userID;
-    private ArrayList<String> savedBuildsIds;
-    private List<DocumentSnapshot> myBuilds;
+    private List<DocumentSnapshot> builds;
 
 
-    public FetchMyBuilds(String userID) {
+    public FetchBuilds(String userID) {
         this.userID = userID;
     }
 
@@ -44,21 +44,12 @@ public class FetchMyBuilds extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userAccount = db.collection("accounts").document(userID);
-        Task<DocumentSnapshot> task = userAccount.get();
-        savedBuildsIds = null;
-        task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        builds = null;
+        Task<QuerySnapshot> task = db.collection("builds").whereEqualTo("champion", "Aatrox").get();
+        task.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                savedBuildsIds = (ArrayList<String>) task.getResult().get("savedBuilds");
-                Query builds = db.collection("builds").whereIn(FieldPath.documentId(), savedBuildsIds);
-                Task<QuerySnapshot> querySnapshot = builds.get();
-                querySnapshot.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        myBuilds = querySnapshot.getResult().getDocuments();
-                    }
-                });
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                builds = task.getResult().getDocuments();
             }
         });
         return null;
@@ -67,7 +58,7 @@ public class FetchMyBuilds extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        MyBuildsFragment.setMyBuilds(myBuilds);
+        ExploreFragment.setBuilds(builds);
         delegate.processFinish("success");
     }
 

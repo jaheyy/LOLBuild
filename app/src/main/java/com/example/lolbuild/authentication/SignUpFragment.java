@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -34,7 +35,10 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -159,10 +163,18 @@ public class SignUpFragment extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(getContext(), "Your account has been created!", Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent(getContext(), MainAppActivity.class);
-                    getActivity().finish();
-                    startActivity(myIntent);
+                    DocumentReference myBuildsRef = db.collection("accounts").document(user.getUid());
+                    Map<String, Object> savedBuilds = new HashMap<>();
+                    savedBuilds.put("savedBuilds", new ArrayList<String>());
+                    myBuildsRef.set(savedBuilds).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getContext(), "Your account has been created!", Toast.LENGTH_SHORT).show();
+                            Intent myIntent = new Intent(getContext(), MainAppActivity.class);
+                            getActivity().finish();
+                            startActivity(myIntent);
+                        }
+                    });
                 }
             }
         };
