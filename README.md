@@ -55,7 +55,7 @@ List of ready features
 * Fetch data from League of Legends Developer's resources (If current LOL Patch is newer than saved in Shared Preferences)
 
 ## Code Examples
-* Example of Asynchronious Task fetching LOL Resources. It uses delegate of interface AsyncResponse to notify fragment when task has been done.
+Example of Asynchronious Task fetching LOL Resources. It uses delegate of interface AsyncResponse to notify fragment when task has been done.
 If current LOL Version is newer than saved in shared preferences it fetch the data, otherwise it just takes if from shared preferences.
 ```java
 public class FetchChampions extends AsyncTask<Void, Void, Void> {
@@ -96,7 +96,7 @@ public class FetchChampions extends AsyncTask<Void, Void, Void> {
     }
 }
 ```
-* View holders in adapters uses buildViewModel to save state of currently added new build
+View holders in adapters uses buildViewModel to save state of currently added new build
 ```java
 holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +116,7 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
             }
         });
 ```
-* Example of Edit Texts field validations with saripaar and checking Firebase auth exceptions.
+Example of Edit Texts field validations with saripaar and checking Firebase auth exceptions.
 ```java
 validator = new Validator(this);
         ValidationListener validationListener = new ValidationListener() {
