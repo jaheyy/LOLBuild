@@ -21,25 +21,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ChangeNameFragment extends Fragment {
 
-    @NotEmpty
-    private String newName;
-
     public ChangeNameFragment() {
-        // Required empty public constructor
-    }
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_change_name, container, false);
     }
 
@@ -77,9 +69,5 @@ public class ChangeNameFragment extends Fragment {
                 }
             }
         });
-
-
-
-
     }
 }

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lolbuild.R;
@@ -24,33 +23,25 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
     private List<DocumentSnapshot> myBuilds;
     private Context context;
     private boolean showAdd;
-    private boolean showEdit;
     private boolean showDelete;
     private String userID;
     private NavController navController;
 
-    public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds, boolean showAdd, boolean showEdit, boolean showDelete, String userID) {
+    public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds, boolean showAdd, boolean showDelete, String userID) {
         this.myBuilds = myBuilds;
         this.context = context;
         this.showAdd = showAdd;
-        this.showEdit = showEdit;
         this.showDelete = showDelete;
         this.userID = userID;
     }
 
-    public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds, boolean showAdd, boolean showEdit, boolean showDelete, String userID, NavController navController) {
+    public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds, boolean showAdd, boolean showDelete, String userID, NavController navController) {
         this.myBuilds = myBuilds;
         this.context = context;
         this.showAdd = showAdd;
-        this.showEdit = showEdit;
         this.showDelete = showDelete;
         this.userID = userID;
         this.navController = navController;
-    }
-
-    public MyBuildsAdapter(Context context, List<DocumentSnapshot> myBuilds) {
-        this.context = context;
-        this.myBuilds = myBuilds;
     }
 
     @NonNull

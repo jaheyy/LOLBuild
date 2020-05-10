@@ -14,12 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.authentication.AuthenticationActivity;
-import com.example.lolbuild.mainApp.MainAppActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,19 +26,14 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ChangeEmailFragment extends Fragment {
     private FirebaseUser user;
     @Email
@@ -48,7 +41,7 @@ public class ChangeEmailFragment extends Fragment {
     private EditText emailEditText;
 
     public ChangeEmailFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -60,7 +53,6 @@ public class ChangeEmailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_change_email, container, false);
     }
 

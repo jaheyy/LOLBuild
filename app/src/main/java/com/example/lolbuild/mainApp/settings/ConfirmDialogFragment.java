@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Objects;
 
 public class ConfirmDialogFragment extends DialogFragment {
     private Activity activity;

@@ -17,23 +17,11 @@ import android.view.ViewGroup;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.ItemsAdapter;
-import com.example.lolbuild.authentication.AuthenticationActivity;
-import com.example.lolbuild.models.Item;
+import com.example.lolbuild.mainApp.MainAppActivity;
 import com.example.lolbuild.viewModels.BuildViewModel;
 
-import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ItemsFragment extends Fragment {
-
-    private static ArrayList<Item> items;
-    private NavController navController;
-    private RecyclerView recyclerView;
-    private GridLayoutManager gridLayoutManager;
-    private BuildViewModel buildViewModel;
-    private int itemSet;
 
     public ItemsFragment() {
 
@@ -53,13 +41,13 @@ public class ItemsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        itemSet = ItemsFragmentArgs.fromBundle(getArguments()).getItemSet();
-        buildViewModel = new ViewModelProvider(requireActivity()).get(BuildViewModel.class);
-        navController = Navigation.findNavController(view);
-        recyclerView = view.findViewById(R.id.itemsRecyclerView);
-        gridLayoutManager = new GridLayoutManager(getContext(),8);
+        int itemSet = ItemsFragmentArgs.fromBundle(getArguments()).getItemSet();
+        BuildViewModel buildViewModel = new ViewModelProvider(requireActivity()).get(BuildViewModel.class);
+        NavController navController = Navigation.findNavController(view);
+        RecyclerView recyclerView = view.findViewById(R.id.itemsRecyclerView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 8);
         recyclerView.setLayoutManager(gridLayoutManager);
-        ItemsAdapter itemsAdapter = new ItemsAdapter(getContext(), AuthenticationActivity.getItems(), navController, buildViewModel, itemSet);
+        ItemsAdapter itemsAdapter = new ItemsAdapter(getContext(), MainAppActivity.getItems(), navController, buildViewModel, itemSet);
         recyclerView.setAdapter(itemsAdapter);
     }
 }

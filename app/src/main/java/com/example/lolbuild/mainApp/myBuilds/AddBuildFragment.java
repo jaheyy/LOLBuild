@@ -35,9 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class AddBuildFragment extends Fragment {
 
     private BuildViewModel buildViewModel;
@@ -45,7 +43,7 @@ public class AddBuildFragment extends Fragment {
     private FirebaseFirestore db;
 
     public AddBuildFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -59,7 +57,6 @@ public class AddBuildFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_build, container, false);
     }
 

@@ -34,17 +34,8 @@ public class ExploreFragment extends Fragment {
     private RecyclerView buildsRecyclerView;
 
     public ExploreFragment() {
-        // Required empty public constructor
-    }
 
-    public static List<DocumentSnapshot> getBuilds() {
-        return builds;
     }
-
-    public static void setBuilds(List<DocumentSnapshot> builds) {
-        ExploreFragment.builds = builds;
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,31 +59,13 @@ public class ExploreFragment extends Fragment {
         buildsRecyclerView = view.findViewById(R.id.buildsRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         buildsRecyclerView.setLayoutManager(linearLayoutManager);
-        RecyclerView.Adapter adapter = new RecyclerView.Adapter() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return null;
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return 0;
-            }
-        };
-
         builds = null;
         Task<QuerySnapshot> task = db.collection("builds").orderBy("champion").get();
         task.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 builds = task.getResult().getDocuments();
-                MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), builds, true, false, false, user.getUid());
+                MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), builds, true, false, user.getUid());
                 buildsRecyclerView.setAdapter(myBuildsAdapter);
             }
         });
@@ -107,7 +80,7 @@ public class ExploreFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         builds = task.getResult().getDocuments();
-                        MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), builds, true, false, false, user.getUid());
+                        MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), builds, true, false, user.getUid());
                         buildsRecyclerView.setAdapter(myBuildsAdapter);
                     }
                 });

@@ -20,10 +20,7 @@ import android.widget.TextView;
 import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.MyBuildsAdapter;
 import com.example.lolbuild.jobs.AsyncResponse;
-import com.example.lolbuild.jobs.FetchChampions;
-import com.example.lolbuild.jobs.FetchItems;
 import com.example.lolbuild.jobs.FetchLolVersion;
-import com.example.lolbuild.mainApp.MainAppActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,20 +38,16 @@ import java.util.List;
 
 public class MyBuildsFragment extends Fragment implements AsyncResponse {
     private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
     private FloatingActionButton createBuildFAB;
-    private TextView errorTextView;
     private NavController navController;
-    private FirebaseAuth auth;
     private static List<DocumentSnapshot> myBuilds;
     private ArrayList<String> savedBuildsIds;
-    private MyBuildsAdapter myBuildsAdapter;
     private String errorMessage;
     private FirebaseFirestore db;
     private String userID;
 
     public MyBuildsFragment() {
-        // Required empty public constructor
+
     }
 
     public static void setMyBuilds(List<DocumentSnapshot> myBuilds) {
@@ -64,7 +57,7 @@ public class MyBuildsFragment extends Fragment implements AsyncResponse {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userID = auth.getCurrentUser().getUid();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
@@ -92,7 +85,7 @@ public class MyBuildsFragment extends Fragment implements AsyncResponse {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     myBuilds = querySnapshot.getResult().getDocuments();
-                                    MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), myBuilds, false, true, true, userID, navController);
+                                    MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), myBuilds, false, true, userID, navController);
                                     recyclerView.setAdapter(myBuildsAdapter);
                                 }
                             });
@@ -112,10 +105,10 @@ public class MyBuildsFragment extends Fragment implements AsyncResponse {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createBuildFAB = view.findViewById(R.id.createBuildFAB);
-        errorTextView = view.findViewById(R.id.errorTextView);
+        TextView errorTextView = view.findViewById(R.id.errorTextView);
         navController = Navigation.findNavController(view);
         recyclerView = view.findViewById(R.id.myBuildsRecyclerView);
-        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new RecyclerView.Adapter() {
             @NonNull

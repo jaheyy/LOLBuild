@@ -37,9 +37,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ReauthenticateFragment extends Fragment {
 
     @NotEmpty
@@ -52,14 +50,13 @@ public class ReauthenticateFragment extends Fragment {
     private NavController navController;
 
     public ReauthenticateFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_reauthenticate, container, false);
     }
 

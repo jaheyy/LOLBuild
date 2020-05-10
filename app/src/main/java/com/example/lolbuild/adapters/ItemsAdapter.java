@@ -2,7 +2,6 @@ package com.example.lolbuild.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +40,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     @Override
     public ItemsAdapter.ItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowlayout, parent, false);
-        ItemsViewHolder viewHolder = new ItemsViewHolder(view);
-        return viewHolder;
+        return new ItemsViewHolder(view);
     }
 
     @Override

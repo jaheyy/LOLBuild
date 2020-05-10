@@ -3,7 +3,7 @@ package com.example.lolbuild.jobs;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-import com.example.lolbuild.authentication.AuthenticationActivity;
+import com.example.lolbuild.mainApp.MainAppActivity;
 import com.example.lolbuild.models.Item;
 import com.example.lolbuild.utilities.Utilities;
 import com.google.gson.Gson;
@@ -14,6 +14,7 @@ import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
 
 public class FetchLolVersion extends AsyncTask<Void, Void, Void> {
     private String versionJson;
@@ -37,7 +38,7 @@ public class FetchLolVersion extends AsyncTask<Void, Void, Void> {
         try {
             JSONArray json = new JSONArray(versionJson);
             String currentLolVersion = json.get(0).toString();
-            AuthenticationActivity.setLolVersion(currentLolVersion);
+            MainAppActivity.setLolVersion(currentLolVersion);
             if (!sharedPreferences.getString("LolVersion", "").equals(currentLolVersion) ||
                 sharedPreferences.getString("items", "").equals("") ||
                 sharedPreferences.getString("champions", "").equals("")) {
@@ -53,12 +54,12 @@ public class FetchLolVersion extends AsyncTask<Void, Void, Void> {
                 String items = sharedPreferences.getString("items", "");
                 Type arrayOfItems = new TypeToken<ArrayList<Item>>() {}.getType();
                 ArrayList<Item> itemsList = gson.fromJson(items, arrayOfItems);
-                AuthenticationActivity.setItems(itemsList);
+                MainAppActivity.setItems(itemsList);
 
                 String champions = sharedPreferences.getString("champions", "");
                 Type arrayOfStrings = new TypeToken<ArrayList<String>>() {}.getType();
                 ArrayList<String> championsList = gson.fromJson(champions, arrayOfStrings);
-                AuthenticationActivity.setChampions(championsList);
+                MainAppActivity.setChampions(championsList);
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -18,29 +18,21 @@ import android.widget.Toast;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.authentication.AuthenticationActivity;
-import com.example.lolbuild.mainApp.MainAppActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
-import com.mobsandgeeks.saripaar.annotation.Email;
-import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
 import java.util.List;
-import java.util.Objects;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ChangePasswordFragment extends Fragment {
     private FirebaseUser user;
     @NotEmpty
@@ -50,7 +42,7 @@ public class ChangePasswordFragment extends Fragment {
     private EditText confirmPasswordEditText;
 
     public ChangePasswordFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -62,7 +54,6 @@ public class ChangePasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_change_password, container, false);
     }
 

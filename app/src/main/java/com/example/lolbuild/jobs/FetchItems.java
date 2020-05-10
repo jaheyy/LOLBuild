@@ -6,8 +6,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.lolbuild.authentication.AuthenticationActivity;
-import com.example.lolbuild.mainApp.myBuilds.MyBuildsFragment;
+import com.example.lolbuild.mainApp.MainAppActivity;
 import com.example.lolbuild.models.Item;
 import com.example.lolbuild.utilities.Utilities;
 import com.google.gson.Gson;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class FetchItems extends AsyncTask<Void, Void, Void> {
-    private AsyncResponse delegate = null;
+    private AsyncResponse delegate;
     private String itemsJson;
     private SharedPreferences sharedPreferences;
 
@@ -30,7 +29,7 @@ public class FetchItems extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        itemsJson = Utilities.fetchData("http://ddragon.leagueoflegends.com/cdn/" + AuthenticationActivity.getLolVersion() + "/data/en_US/item.json");
+        itemsJson = Utilities.fetchData("http://ddragon.leagueoflegends.com/cdn/" + MainAppActivity.getLolVersion() + "/data/en_US/item.json");
         return null;
     }
 
@@ -55,7 +54,7 @@ public class FetchItems extends AsyncTask<Void, Void, Void> {
                 );
                 itemList.add(item);
             }
-            AuthenticationActivity.setItems(itemList);
+            MainAppActivity.setItems(itemList);
             Gson gson = new Gson();
             String itemsJson = gson.toJson(itemList);
             SharedPreferences.Editor editor = sharedPreferences.edit();
