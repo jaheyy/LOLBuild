@@ -1,13 +1,16 @@
 package com.example.lolbuild.jobs;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
 import com.example.lolbuild.authentication.AuthenticationActivity;
+import com.example.lolbuild.mainApp.myBuilds.MyBuildsFragment;
 import com.example.lolbuild.models.Item;
 import com.example.lolbuild.utilities.Utilities;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,17 +21,11 @@ import java.util.Iterator;
 public class FetchItems extends AsyncTask<Void, Void, Void> {
     private AsyncResponse delegate = null;
     private String itemsJson;
+    private SharedPreferences sharedPreferences;
 
-    public AsyncResponse getDelegate() {
-        return delegate;
-    }
-
-    public void setDelegate(AsyncResponse delegate) {
+    public FetchItems(SharedPreferences sharedPreferences, AsyncResponse delegate) {
+        this.sharedPreferences = sharedPreferences;
         this.delegate = delegate;
-    }
-
-    public interface AsyncResponse {
-        void processFinish(String output);
     }
 
     @Override
@@ -59,10 +56,15 @@ public class FetchItems extends AsyncTask<Void, Void, Void> {
                 itemList.add(item);
             }
             AuthenticationActivity.setItems(itemList);
-            delegate.processFinish("Success");
+            Gson gson = new Gson();
+            String itemsJson = gson.toJson(itemList);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("items", itemsJson);
+            editor.commit();
+            FetchChampions fetchChampions = new FetchChampions(sharedPreferences, delegate);
+            fetchChampions.execute();
         } catch (JSONException e) {
             e.printStackTrace();
-            delegate.processFinish("Something went wrong.");
         }
     }
 }

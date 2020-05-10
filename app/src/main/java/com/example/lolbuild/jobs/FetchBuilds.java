@@ -20,25 +20,12 @@ import java.util.List;
 
 
 public class FetchBuilds extends AsyncTask<Void, Void, Void> {
-    private AsyncResponse delegate = null;
     private String userID;
     private List<DocumentSnapshot> builds;
 
 
     public FetchBuilds(String userID) {
         this.userID = userID;
-    }
-
-    public AsyncResponse getDelegate() {
-        return delegate;
-    }
-
-    public void setDelegate(AsyncResponse delegate) {
-        this.delegate = delegate;
-    }
-
-    public interface AsyncResponse {
-        void processFinish(String output);
     }
 
     @Override
@@ -59,7 +46,6 @@ public class FetchBuilds extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         ExploreFragment.setBuilds(builds);
-        delegate.processFinish("success");
     }
 
 }

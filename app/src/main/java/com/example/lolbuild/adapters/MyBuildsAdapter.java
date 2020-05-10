@@ -118,17 +118,6 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
         } else {
             holder.deleteBuildIcon.setImageDrawable(null);
         }
-
-        if (showEdit) {
-            holder.editBuildIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    EditBuild(currentBuild.getId());
-                }
-            });
-        } else {
-            holder.editBuildIcon.setImageDrawable(null);
-        }
     }
 
     @Override
@@ -138,7 +127,6 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
 
     class MyBuildsViewHolder extends RecyclerView.ViewHolder {
         ImageView forkBuildIcon;
-        ImageView editBuildIcon;
         ImageView deleteBuildIcon;
         ImageView championImageView;
         ImageView startingItem1;
@@ -165,7 +153,6 @@ public class MyBuildsAdapter extends RecyclerView.Adapter<MyBuildsAdapter.MyBuil
         public MyBuildsViewHolder(@NonNull View itemView) {
             super(itemView);
             forkBuildIcon = itemView.findViewById(R.id.forkBuildImageView);
-            editBuildIcon = itemView.findViewById(R.id.editBuildImageView);
             deleteBuildIcon = itemView.findViewById(R.id.deleteBuildImageView);
             championImageView = itemView.findViewById(R.id.championImageView);
             startingItem1 = itemView.findViewById(R.id.startingItem1);

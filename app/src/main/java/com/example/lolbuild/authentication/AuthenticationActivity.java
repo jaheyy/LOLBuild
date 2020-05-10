@@ -2,6 +2,7 @@ package com.example.lolbuild.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.lolbuild.R;
@@ -44,7 +45,5 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
-        FetchLolVersion fetchLolVersion = new FetchLolVersion();
-        fetchLolVersion.execute();
-    }
+}
 }

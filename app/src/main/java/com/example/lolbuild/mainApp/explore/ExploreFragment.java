@@ -15,7 +15,6 @@ import android.widget.SearchView;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.MyBuildsAdapter;
-import com.example.lolbuild.authentication.AuthenticationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,6 +62,7 @@ public class ExploreFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         SearchView searchView = view.findViewById(R.id.searchView);
         buildsRecyclerView = view.findViewById(R.id.buildsRecyclerView);
@@ -86,12 +86,20 @@ public class ExploreFragment extends Fragment {
             }
         };
 
-        buildsRecyclerView.setAdapter(adapter);
+        builds = null;
+        Task<QuerySnapshot> task = db.collection("builds").orderBy("champion").get();
+        task.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                builds = task.getResult().getDocuments();
+                MyBuildsAdapter myBuildsAdapter = new MyBuildsAdapter(getContext(), builds, true, false, false, user.getUid());
+                buildsRecyclerView.setAdapter(myBuildsAdapter);
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 builds = null;
                 String searchQuery = query.substring(0, 1).toUpperCase() + query.substring(1).toLowerCase();
                 Task<QuerySnapshot> task = db.collection("builds").whereEqualTo("champion", searchQuery).get();

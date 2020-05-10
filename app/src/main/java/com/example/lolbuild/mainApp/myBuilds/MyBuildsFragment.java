@@ -1,5 +1,7 @@
 package com.example.lolbuild.mainApp.myBuilds;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,11 @@ import android.widget.TextView;
 
 import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.MyBuildsAdapter;
+import com.example.lolbuild.jobs.AsyncResponse;
+import com.example.lolbuild.jobs.FetchChampions;
+import com.example.lolbuild.jobs.FetchItems;
+import com.example.lolbuild.jobs.FetchLolVersion;
+import com.example.lolbuild.mainApp.MainAppActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,12 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyBuildsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MyBuildsFragment extends Fragment {
+public class MyBuildsFragment extends Fragment implements AsyncResponse {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private FloatingActionButton createBuildFAB;
@@ -65,6 +67,9 @@ public class MyBuildsFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userID = auth.getCurrentUser().getUid();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+        FetchLolVersion fetchLolVersion = new FetchLolVersion(sharedPreferences, this);
+        fetchLolVersion.execute();
     }
 
     @Override
@@ -100,17 +105,12 @@ public class MyBuildsFragment extends Fragment {
                 }
             }
         });
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_builds, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        String email = auth.getCurrentUser().getEmail();
-//        Log.i("User", auth.getCurrentUser().toString());
-
         createBuildFAB = view.findViewById(R.id.createBuildFAB);
         errorTextView = view.findViewById(R.id.errorTextView);
         navController = Navigation.findNavController(view);
@@ -146,5 +146,11 @@ public class MyBuildsFragment extends Fragment {
             errorTextView.setText(errorMessage);
             errorTextView.setAlpha(1);
         }
+    }
+
+    @Override
+    public void processFinish(String output) {
+        if (output.equals("Success"))
+            createBuildFAB.setClickable(true);
     }
 }

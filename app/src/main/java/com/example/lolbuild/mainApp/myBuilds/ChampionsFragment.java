@@ -18,13 +18,12 @@ import android.view.ViewGroup;
 import com.example.lolbuild.R;
 import com.example.lolbuild.adapters.ChampionsAdapter;
 import com.example.lolbuild.authentication.AuthenticationActivity;
-import com.example.lolbuild.jobs.FetchChampions;
 import com.example.lolbuild.viewModels.BuildViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChampionsFragment extends Fragment implements FetchChampions.AsyncResponse {
+public class ChampionsFragment extends Fragment {
 
     private static String championsJson;
     private RecyclerView recyclerView;
@@ -45,13 +44,9 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
         ChampionsFragment.championsJson = championsJson;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FetchChampions fetchChampions = new FetchChampions();
-        fetchChampions.setDelegate(this);
-        fetchChampions.execute();
     }
 
     @Override
@@ -65,37 +60,11 @@ public class ChampionsFragment extends Fragment implements FetchChampions.AsyncR
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         buildViewModel = new ViewModelProvider(requireActivity()).get(BuildViewModel.class);
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        String email = auth.getCurrentUser().getEmail();
-//        Log.i("User", auth.getCurrentUser().toString());
         navController = Navigation.findNavController(view);
         recyclerView = view.findViewById(R.id.championsRecyclerView);
         gridLayoutManager = new GridLayoutManager(getContext(),5);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(new RecyclerView.Adapter() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return null;
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return 0;
-            }
-        });
-    }
-
-    @Override
-    public void processFinish(String output) {
-        if (output.equals("Success")) {
-            championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions(), navController, buildViewModel);
-            recyclerView.setAdapter(championsAdapter);
-        }
+        championsAdapter = new ChampionsAdapter(getContext(), AuthenticationActivity.getChampions(), navController, buildViewModel);
+        recyclerView.setAdapter(championsAdapter);
     }
 }
