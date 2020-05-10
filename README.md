@@ -16,17 +16,17 @@ It always has actual data, because it uses official League of Legends developer 
 This app uses Google's Firebase for managing users, cloud database and its access. For navigation features it has Android Jetpack navigation graphs implemented.
 
 ## Screenshots
-* ![Sign in form](/screenshots/1.PNG)
-* ![Sign up form](/screenshots/2.PNG)
-* ![Reset password form](/screenshots/3.PNG)
-* ![My Builds fragment](/screenshots/4.PNG)
-* ![Choose champion fragment](/screenshots/5.PNG)
-* ![Add new build fragment](/screenshots/6.PNG)
-* ![Explore builds fragment](/screenshots/7.PNG)
-* ![Account settings fragment](/screenshots/8.PNG)
-* ![Confirmation modal](/screenshots/9.PNG)
-* ![Authentication activity navigation graph](/screenshots/11.PNG)
-* ![Main app activity navigation graph](/screenshots/10.PNG)
+![Sign in form](/screenshots/1.PNG)
+![Sign up form](/screenshots/2.PNG)
+![Reset password form](/screenshots/3.PNG)
+![My Builds fragment](/screenshots/4.PNG)
+![Choose champion fragment](/screenshots/5.PNG)
+![Add new build fragment](/screenshots/6.PNG)
+![Explore builds fragment](/screenshots/7.PNG)
+![Account settings fragment](/screenshots/8.PNG)
+![Confirmation modal](/screenshots/9.PNG)
+![Authentication activity navigation graph](/screenshots/11.PNG)
+![Main app activity navigation graph](/screenshots/10.PNG)
 
 ## Technologies
 * Android studio 3.6.3
